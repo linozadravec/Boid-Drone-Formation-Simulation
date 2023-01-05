@@ -21,9 +21,7 @@ public class Instantiator : MonoBehaviour
         ProslijedivanjeKrozScenu proslijedivanjeKrozScenu = FindObjectOfType<ProslijedivanjeKrozScenu>();
 
         brojDronova = proslijedivanjeKrozScenu.BrojDronova;
-        
-        
-
+       
         switch (proslijedivanjeKrozScenu.Formacija)
         {
             case Formacija.FOI:
@@ -33,25 +31,15 @@ public class Instantiator : MonoBehaviour
             case Formacija.Krug:
                 InstanciranjeRandom(FormacijaKrug.TRANSFORM_LIST_KRUG_X.Count);
                 ZadajFormacijuKruznica();
-                Debug.Log("Jos nije implementirano");
                 break;
             case Formacija.Linija:
-                Debug.Log("Jos nije implementirano");
+                InstanciranjeRandom(FormacijaLinija.TRANSFORM_LIST_LINIJA_X.Count);
+                ZadajFormacijuLinija();
                 break;
             default:
                 Debug.Log("Nema formacije");
                 break;
         }
-
-        //if (proslijedivanjeKrozScenu.Formacija == Formacija.Krug)
-        //{
-        //    InstanciranjeRandom();
-        //    //InstanciranjeKruznica();
-        //}
-        //else
-        //{
-        //    InstanciranjeLinija();
-        //}
     }
 
     private void InstanciranjeRandom(int brojDronova)
@@ -67,8 +55,8 @@ public class Instantiator : MonoBehaviour
             do
             {
                 ispravno = true;
-                xRandom = UnityEngine.Random.Range(-5f, 5f);
-                zRandom = UnityEngine.Random.Range(-14f, 6f);
+                xRandom = UnityEngine.Random.Range(-brojDronova/3, brojDronova/3);
+                zRandom = UnityEngine.Random.Range(-brojDronova/3, brojDronova/3);
 
                 for (int j = 0; j < xCoordinates.Count; j++)
                 {
@@ -109,23 +97,12 @@ public class Instantiator : MonoBehaviour
             cilj.transform.parent = ciljevi;
 
             boids[i].Initialize(settings, cilj.transform);
-            //Debug.Log(cilj.name + ": "+ cilj.transform.position.x +" "+ cilj.transform.position.y +" " + cilj.transform.position.z);
-            //Instantiate(cilj, ciljPosition, Quaternion.identity, ciljevi);
         }
     }
 
 
     private void ZadajFormacijuKruznica()
     {
-        //for(int i = 0; i < FormacijaFOI.TRANSFORM_LIST_FOI_X.Count; i++)
-        //{
-        //    Vector3 spawnPosition;
-        //    spawnPosition.x = FormacijaFOI.TRANSFORM_LIST_FOI_X[i];
-        //    spawnPosition.y = FormacijaFOI.TRANSFORM_LIST_FOI_Y[i];
-        //    spawnPosition.z = FormacijaFOI.TRANSFORM_LIST_FOI_Z[i];
-
-        //    Instantiate(prefab, spawnPosition, Quaternion.identity, dronovi);
-        //}
 
         Boid[] boids;
         boids = FindObjectsOfType<Boid>();
@@ -141,64 +118,25 @@ public class Instantiator : MonoBehaviour
             cilj.transform.parent = ciljevi;
 
             boids[i].Initialize(settings, cilj.transform);
-            //Debug.Log(cilj.name + ": "+ cilj.transform.position.x +" "+ cilj.transform.position.y +" " + cilj.transform.position.z);
-            //Instantiate(cilj, ciljPosition, Quaternion.identity, ciljevi);
         }
-
-        //inkrementStupnjeva = 360 / 10;
-        //inkrementStupnjeva = Mathf.Round(inkrementStupnjeva * 100.0f) * 0.01f + 0.5f;
-
-        //for (float i = 0; i < 360; i += inkrementStupnjeva)
-        //{
-        //    Vector3 spawnPosition;
-        //    float angle = i * Mathf.Deg2Rad;
-
-        //    spawnPosition.x = (razmakDronovaKruznica * Mathf.Cos(angle));
-        //    spawnPosition.y = (razmakDronovaKruznica * Mathf.Sin(angle));
-        //    spawnPosition.z = 0;
-
-        //    Debug.Log(spawnPosition.x + " " + spawnPosition.y + " " + spawnPosition.z);
-
-        //    Instantiate(prefab, spawnPosition, Quaternion.identity, dronovi);
-
-        //}
     }
 
-    private void InstanciranjeLinija()
+    private void ZadajFormacijuLinija()
     {
-        if (brojDronova % 2 == 0)
+        Boid[] boids;
+        boids = FindObjectsOfType<Boid>();
+
+        for (int i = 0; i < FormacijaLinija.TRANSFORM_LIST_LINIJA_X.Count; i++)
         {
-            for (int i = 0; i < brojDronova; i++)
-            {
-                int x = razmakDronovaLinija / 2 + (i / 2 * razmakDronovaLinija);
+            GameObject cilj = new GameObject("Cilj" + i);
+            Vector3 ciljPosition;
+            ciljPosition.x = FormacijaLinija.TRANSFORM_LIST_LINIJA_X[i];
+            ciljPosition.y = FormacijaLinija.TRANSFORM_LIST_LINIJA_Y[i];
+            ciljPosition.z = FormacijaLinija.TRANSFORM_LIST_LINIJA_Z[i];
+            cilj.transform.position = ciljPosition;
+            cilj.transform.parent = ciljevi;
 
-                if (i % 2 == 0)
-                {
-                    Instantiate(prefab, new Vector3(x * -1, 0, 0), Quaternion.identity, dronovi);
-                }
-                else
-                {
-                    Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, dronovi);
-                }
-            }
-        }
-        else
-        {
-            Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity, dronovi);
-
-            for (int i = 0; i < brojDronova - 1; i++)
-            {
-                int x = razmakDronovaLinija + (i / 2 * razmakDronovaLinija);
-
-                if (i % 2 == 0)
-                {
-                    Instantiate(prefab, new Vector3(x * -1, 0, 0), Quaternion.identity, dronovi);
-                }
-                else
-                {
-                    Instantiate(prefab, new Vector3(x, 0, 0), Quaternion.identity, dronovi);
-                }
-            }
+            boids[i].Initialize(settings, cilj.transform);
         }
     }
 }
