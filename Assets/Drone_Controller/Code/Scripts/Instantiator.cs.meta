@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1ab2f6c7c01b2674daa7fdddd3d256bd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - settings: {fileID: 11400000, guid: ff6f55c8be8c6ed43b2a316af0cc8f4b, type: 2}
+  - prefab: {instanceID: 0}
+  - dronovi: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
