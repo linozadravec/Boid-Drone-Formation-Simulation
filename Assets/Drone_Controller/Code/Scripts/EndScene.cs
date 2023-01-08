@@ -44,4 +44,6 @@ public class EndScene : MonoBehaviour
         SceneManager.LoadScene(0);
         Time.timeScale = 1;
     }
+
+    
 }

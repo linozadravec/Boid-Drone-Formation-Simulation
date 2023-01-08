@@ -13,18 +13,10 @@ public class BoidManager : MonoBehaviour {
     public ComputeShader compute;
     Boid[] boids;
 
-    //dodano
-    //public Transform target;
 
     void Start()
     {
         boids = FindObjectsOfType<Boid>();
-        //foreach (Boid b in boids)
-        //{
-        //    //target je bil null
-        //    b.Initialize(settings, target);
-        //}
-
     }
 
     void Update () {
@@ -41,9 +33,6 @@ public class BoidManager : MonoBehaviour {
 
             if (uFormaciji)
             {
-                //IP_Drone_Inputs droneInputsScript;
-                //droneInputsScript = GetComponent<IP_Drone_Inputs>();
-
                 foreach (Boid b in boids)
                 {
                     b.GetComponent<IP_Drone_Inputs>().enabled = true;
