@@ -6,9 +6,15 @@ public class Boid : MonoBehaviour {
 
     BoidSettings settings;
 
-    [HideInInspector]
-    public bool jeKraj = false;
+    private List<Boid> susjedi;
 
+    //sirina sfere koja se casta za racunanje novog directiona pri kretanju prema sudaru
+    public float sphereRadius = 1;
+
+
+    public bool jeKraj = false;
+    public float minSpeed = 0.5f;
+    public float maxSpeed = 1f;
     // State
     [HideInInspector]
     public Vector3 position;
@@ -37,6 +43,8 @@ public class Boid : MonoBehaviour {
         cachedTransform = transform;
     }
 
+
+
     public void Initialize (BoidSettings settings, Transform target) {
         this.target = target;
         this.settings = settings;
@@ -44,14 +52,8 @@ public class Boid : MonoBehaviour {
         position = cachedTransform.position;
         forward = cachedTransform.forward;
 
-        float startSpeed = (settings.minSpeed + settings.maxSpeed) / 2;
+        float startSpeed = (minSpeed + maxSpeed) / 2;
         velocity = transform.forward * startSpeed;
-    }
-
-    public void SetColour (Color col) {
-        if (material != null) {
-            material.color = col;
-        }
     }
 
     public void UpdateBoid () {
@@ -71,21 +73,6 @@ public class Boid : MonoBehaviour {
 
         if (!jeKraj)
         {
-            if (numPerceivedFlockmates != 0)
-            {
-                centreOfFlockmates /= numPerceivedFlockmates;
-
-                Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
-
-                var alignmentForce = SteerTowards(avgFlockHeading) * settings.alignWeight;
-                var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * settings.cohesionWeight;
-                var seperationForce = SteerTowards(avgAvoidanceHeading) * settings.seperateWeight;
-
-                acceleration += alignmentForce;
-                acceleration += cohesionForce;
-                acceleration += seperationForce;
-            }
-
             if (IsHeadingForCollision())
             {
                 Vector3 collisionAvoidDir = ObstacleRays();
@@ -96,7 +83,7 @@ public class Boid : MonoBehaviour {
             velocity += acceleration * Time.deltaTime;
             float speed = velocity.magnitude;
             Vector3 dir = velocity / speed;
-            speed = Mathf.Clamp(speed, settings.minSpeed, settings.maxSpeed);
+            speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
             velocity = dir * speed;
 
             cachedTransform.position += velocity * Time.deltaTime;
@@ -108,7 +95,7 @@ public class Boid : MonoBehaviour {
 
     bool IsHeadingForCollision () {
         RaycastHit hit;
-        if (Physics.SphereCast (position, settings.boundsRadius, forward, out hit, settings.collisionAvoidDst, settings.obstacleMask)) {
+        if (Physics.SphereCast (position, sphereRadius, forward, out hit, settings.collisionAvoidDst, settings.obstacleMask)) {
             return true;
         } else { }
         return false;
@@ -120,7 +107,7 @@ public class Boid : MonoBehaviour {
         for (int i = 0; i < rayDirections.Length; i++) {
             Vector3 dir = cachedTransform.TransformDirection (rayDirections[i]);
             Ray ray = new Ray (position, dir);
-            if (!Physics.SphereCast (ray, settings.boundsRadius, settings.collisionAvoidDst, settings.obstacleMask)) {
+            if (!Physics.SphereCast (ray, sphereRadius, settings.collisionAvoidDst, settings.obstacleMask)) {
                 return dir;
             }
         }

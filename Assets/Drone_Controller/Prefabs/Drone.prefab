@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 281953497155356408}
   - component: {fileID: 281953497155356410}
   - component: {fileID: 281953497155356411}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LB_Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 281953497315317326}
   - component: {fileID: 281953497315317312}
   - component: {fileID: 281953497315317313}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RF_Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 281953497455022498}
   - component: {fileID: 281953497455022500}
   - component: {fileID: 281953497455022501}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RB_Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 281953497500740002}
   - component: {fileID: 281953497500740004}
   - component: {fileID: 281953497500740005}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LF_Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281953497534818891}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Engines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,8 +281,9 @@ GameObject:
   - component: {fileID: 281953497986537691}
   - component: {fileID: 281953497986537692}
   - component: {fileID: 281953497986537693}
-  - component: {fileID: 4940246148787325883}
-  m_Layer: 0
+  - component: {fileID: 10995947825603943}
+  - component: {fileID: 221926537393349511}
+  m_Layer: 9
   m_Name: Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,11 +406,24 @@ SphereCollider:
   m_GameObject: {fileID: 281953497986537703}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.12008989
   m_Center: {x: 0, y: 0.075268626, z: 0}
---- !u!114 &4940246148787325883
+--- !u!135 &10995947825603943
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281953497986537703}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &221926537393349511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,15 +432,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 281953497986537703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914571c7924ed9f40acc5c8001db3206, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a448407bc1a3fb4d8d79a805582cead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  forward: {x: 0, y: 0, z: 0}
-  avgFlockHeading: {x: 0, y: 0, z: 0}
-  avgAvoidanceHeading: {x: 0, y: 0, z: 0}
-  centreOfFlockmates: {x: 0, y: 0, z: 0}
-  numPerceivedFlockmates: 0
+  minSpeed: 0.5
+  maxSpeed: 1
+  maxSteerForce: 1.2
+  jeKraj: 0
+  udaljenostOdSusjeda: 1
+  susjedi: []
 --- !u!1001 &281953498245151428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,9 +448,57 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 281953497986537688}
     m_Modifications:
+    - target: {fileID: 100000, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
       propertyPath: m_Name
       value: Drone_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: cae7bd101fff4ff4d8ecdaef191105c6, type: 3}
       propertyPath: m_LocalPosition.x

@@ -16,6 +16,8 @@ public class Instantiator : MonoBehaviour
     int brojDronova;
     float inkrementStupnjeva;
 
+    //private List<GameObject> slobodniCiljevi = new List<GameObject>();
+
     void Awake()
     {
         ProslijedivanjeKrozScenu proslijedivanjeKrozScenu = FindObjectOfType<ProslijedivanjeKrozScenu>();
@@ -83,8 +85,8 @@ public class Instantiator : MonoBehaviour
 
     private void ZadajFormacijuFOI()
     {
-        Boid[] boids;
-        boids = FindObjectsOfType<Boid>();
+        DroneMovement[] boids;
+        boids = FindObjectsOfType<DroneMovement>();
 
         for (int i = 0; i < FormacijaFOI.TRANSFORM_LIST_FOI_X.Count; i++)
         {
@@ -96,7 +98,7 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(settings, cilj.transform);
+            boids[i].Initialize(cilj.transform);
         }
     }
 
@@ -104,8 +106,8 @@ public class Instantiator : MonoBehaviour
     private void ZadajFormacijuKruznica()
     {
 
-        Boid[] boids;
-        boids = FindObjectsOfType<Boid>();
+        DroneMovement[] boids;
+        boids = FindObjectsOfType<DroneMovement>();
 
         for (int i = 0; i < FormacijaKrug.TRANSFORM_LIST_KRUG_X.Count; i++)
         {
@@ -117,14 +119,14 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(settings, cilj.transform);
+            boids[i].Initialize(cilj.transform);
         }
     }
 
     private void ZadajFormacijuLinija()
     {
-        Boid[] boids;
-        boids = FindObjectsOfType<Boid>();
+        DroneMovement[] boids;
+        boids = FindObjectsOfType<DroneMovement>();
 
         for (int i = 0; i < FormacijaLinija.TRANSFORM_LIST_LINIJA_X.Count; i++)
         {
@@ -136,7 +138,7 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(settings, cilj.transform);
+            boids[i].Initialize(cilj.transform);
         }
     }
 }
