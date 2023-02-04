@@ -16,7 +16,7 @@ public class Instantiator : MonoBehaviour
     int brojDronova;
     float inkrementStupnjeva;
 
-    //private List<GameObject> slobodniCiljevi = new List<GameObject>();
+    public static List<Transform> slobodniCiljevi = new List<Transform>();
 
     void Awake()
     {
@@ -98,7 +98,13 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(cilj.transform);
+            slobodniCiljevi.Add(cilj.transform);
+
+        }
+
+        foreach(DroneMovement boid in boids)
+        {
+            boid.Odluci();
         }
     }
 
@@ -119,7 +125,12 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(cilj.transform);
+            slobodniCiljevi.Add(cilj.transform);
+        }
+
+        foreach (DroneMovement boid in boids)
+        {
+            boid.Odluci();
         }
     }
 
@@ -138,7 +149,13 @@ public class Instantiator : MonoBehaviour
             cilj.transform.position = ciljPosition;
             cilj.transform.parent = ciljevi;
 
-            boids[i].Initialize(cilj.transform);
+            slobodniCiljevi.Add(cilj.transform);
         }
+
+        foreach (DroneMovement boid in boids)
+        {
+            boid.Odluci();
+        }
+
     }
 }

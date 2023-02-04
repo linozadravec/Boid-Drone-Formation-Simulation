@@ -121,8 +121,22 @@ public class DroneMovement : MonoBehaviour
         return Vector3.ClampMagnitude(v, maxSteerForce);
     }
 
-    void Odluci()
+    public void Odluci()
     {
-        //Initialize(target)
+        Transform najbliziCilj = transform;
+        float udaljenostCilj = 999f;
+
+        foreach(Transform cilj in Instantiator.slobodniCiljevi)
+        {
+            if(Vector3.Distance(cilj.position, transform.position) < udaljenostCilj)
+            {
+                udaljenostCilj = Vector3.Distance(cilj.position, transform.position);
+                najbliziCilj = cilj;
+            }
+        }
+
+        Instantiator.slobodniCiljevi.Remove(najbliziCilj);
+
+        Initialize(najbliziCilj);
     }
 }
