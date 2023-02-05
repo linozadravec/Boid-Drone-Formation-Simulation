@@ -65,31 +65,29 @@ public class DroneMovement : MonoBehaviour
 
                 Vector3 offsetToTarget = (target.position - mojTransform.position);
 
-                //fixa bug di drone nikad ne sleti nego se vrti
+
                 if(offsetToTarget.magnitude < 0.75)
                 {
                     //scaleanje s blizinom
                     multiplier = (1/(offsetToTarget.magnitude/2));
                 }
 
-                acceleration = SteerTowards(offsetToTarget) * multiplier;
+                acceleration = Privlacenje(offsetToTarget);
 
-                acceleration += Odvajanje() * 3;
-
-                //transform.position += acceleration * Time.deltaTime;
+                acceleration += Odbijanje() * 3;
 
                 velocity += acceleration * Time.deltaTime;
-                float speed = velocity.magnitude;
-                Vector3 dir = velocity / speed;
-                speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
-                velocity = dir * speed;
+
+                float speed = Mathf.Clamp(velocity.magnitude, minSpeed, maxSpeed);
+
+                velocity = velocity.normalized * speed;
 
                 transform.position += velocity * Time.deltaTime;
             }
         }
     }
 
-    public Vector3 Odvajanje()
+    public Vector3 Odbijanje()
     {
         Vector3 suprotniVektor = Vector3.zero;
         int brojac = 0;
@@ -101,9 +99,9 @@ public class DroneMovement : MonoBehaviour
                 brojac += 1;
 
                 //cim blize to je blizina veci broj (max 2)
-                //float blizina = 3 - (Vector3.Distance(susjedi[i].transform.position, transform.position) / 0.75f);
+                float blizina = 3 - (Vector3.Distance(susjedi[i].transform.position, transform.position) / 0.75f);
 
-                suprotniVektor += (transform.position - susjedi[i].transform.position);
+                suprotniVektor += (transform.position - susjedi[i].transform.position) * blizina;
             }
         }
 
@@ -115,10 +113,18 @@ public class DroneMovement : MonoBehaviour
         return suprotniVektor;
     }
 
-    Vector3 SteerTowards(Vector3 vector)
+    Vector3 Privlacenje(Vector3 vector)
     {
-        Vector3 v = vector.normalized * maxSpeed - velocity;
-        return Vector3.ClampMagnitude(v, maxSteerForce);
+        if (vector.magnitude < 0.75)
+        {
+            multiplier = (1 / (vector.magnitude / 2));
+        }
+
+        Vector3 targetVector = vector.normalized * maxSpeed;
+        
+        Vector3 rezultanta = targetVector - velocity;
+
+        return Vector3.ClampMagnitude(rezultanta, maxSteerForce) * multiplier;
     }
 
     public void Odluci()
