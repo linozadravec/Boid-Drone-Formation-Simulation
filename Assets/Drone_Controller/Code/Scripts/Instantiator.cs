@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Instantiator : MonoBehaviour
 {
-    public BoidSettings settings;
     public Transform prefab;
     public Transform dronovi;
     public Transform ciljevi;
