@@ -65,13 +65,6 @@ public class DroneMovement : MonoBehaviour
 
                 Vector3 offsetToTarget = (target.position - mojTransform.position);
 
-
-                if(offsetToTarget.magnitude < 0.75)
-                {
-                    //scaleanje s blizinom
-                    multiplier = (1/(offsetToTarget.magnitude/2));
-                }
-
                 acceleration = Privlacenje(offsetToTarget);
 
                 acceleration += Odbijanje() * 3;
