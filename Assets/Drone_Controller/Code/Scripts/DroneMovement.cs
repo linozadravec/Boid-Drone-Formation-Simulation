@@ -28,27 +28,19 @@ public class DroneMovement : MonoBehaviour
 
     public void OnCollisionEnter(Collision sudar)
     {
-        //Time.timeScale = 0; za debug
         Debug.Log("SUDAR");
     }
 
     public void OnTriggerEnter(Collider sudar)
     {
         susjedi.Add(sudar.gameObject);
-        //Debug.Log(susjedi.Count);
     }
 
     public void OnTriggerExit(Collider sudar)
     {
         susjedi.Remove(sudar.gameObject);
-        //Debug.Log(susjedi.Count);
-    }
-    void Start()
-    {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!jeKraj)
@@ -91,7 +83,6 @@ public class DroneMovement : MonoBehaviour
             {
                 brojac += 1;
 
-                //cim blize to je blizina veci broj (max 2)
                 float blizina = 3 - (Vector3.Distance(susjedi[i].transform.position, transform.position) / 0.75f);
 
                 suprotniVektor += (transform.position - susjedi[i].transform.position) * blizina;
